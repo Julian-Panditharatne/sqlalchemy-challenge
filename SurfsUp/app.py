@@ -97,3 +97,6 @@ def call_tobs_agg(start:str):
     return tobs_agg(start=start)
 
 session.close()
+
+if __name__ == "__main__":
+    app.run(debug=True)

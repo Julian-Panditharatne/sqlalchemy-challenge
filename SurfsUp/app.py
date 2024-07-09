@@ -12,7 +12,7 @@ from flask import Flask, jsonify
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///Resources/hawaii.sqlite")
+engine = create_engine("sqlite:///SurfsUp/Resources/hawaii.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -29,6 +29,7 @@ session = Session(engine)
 most_recent_date_query = session.query(func.max(measurement.date))
 most_recent_date = most_recent_date_query[0][0]
 m_r_d_actual = dt.date.fromisoformat(most_recent_date) # convert the date string into a date object.
+query_date_range = m_r_d_actual.replace(year=m_r_d_actual.year-1).isoformat() # Calculate the date one year from the last date in data set.
 
 #################################################
 # Flask Setup
@@ -47,14 +48,17 @@ def home():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/<start><br/>"
-        f"/api/v1.0/<start>/<end>"
+        f"/api/v1.0/start<br/>"
+        f"/api/v1.0/start/end<br/>"
     )
 
 @app.route("/api/v1.0/precipitation")
 def precipitation():
-
-    return jsonify()
+    # Perform a query to retrieve the date and precipitation scores
+    prcp_query = session.query(measurement.date, measurement.prcp).filter(measurement.date >= query_date_range)
+    # Convert the query results to a dictionary using date as the key and prcp as the value, and
+    # Return the JSON representation of your dictionary.
+    return jsonify([{f'{dat}': prcp} for dat, prcp in prcp_query])
 
 @app.route("/api/v1.0/stations")
 def stations():
@@ -64,10 +68,7 @@ def stations():
                     for stat, name, lat, long, elev in stations_query])
 
 @app.route("/api/v1.0/tobs")
-def tobs():
-    # Calculate the date one year from the last date in data set.
-    query_date_range = m_r_d_actual.replace(year=m_r_d_actual.year-1).isoformat()
-
+def tobs():    
     # Query to find the most active station (i.e. which stations had the most rows?)
     # List all the stations and their row counts in descending order and get the station id of the first station in the query.
     most_active_station_query = session.query(measurement.station, func.count(measurement.station)).\

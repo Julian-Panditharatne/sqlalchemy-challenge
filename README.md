@@ -8,7 +8,7 @@ This challenge consists of two main parts:
 
 ## Part 1: Analyzing and Exploring Climate Data
 
-In this section, I used SQLAlchemy ORM queries, Pandas, and Matplotlib to perform basic precipitation and station data analysis and exploration of the provided climate database.
+In this part, I used SQLAlchemy ORM queries, Pandas, and Matplotlib to perform basic precipitation and station data analysis and exploration of the provided climate database.
 
 The precipitation analysis and exploration was performed in the following manner:
 
@@ -34,13 +34,47 @@ The station data analysis and exploration was performed in the following manner:
 
 ## Part 2: Designing a Climate App
 
+In this part, I designed a Flask API based on the queries developed in part 1, which involved using Flask to create the following routes:
 
+/
+
+- Start at the homepage.
+
+- List all the available routes.
+
+/api/v1.0/precipitation
+
+- Convert the query results from the precipitation analysis (i.e. retrieving only the last 12 months of data) to a dictionary using date as the key and prcp as the value.
+
+- Return the JSON representation of the dictionary.
+
+/api/v1.0/stations
+
+- Return a JSON list of stations from the database.
+
+**/api/v1.0/tobs**:
+
+- Query the dates and temperature observations of the most active station for the previous year of data.
+
+- Return a JSON list of temperature observations for the previous year.
+
+**/api/v1.0/< start >** and **/api/v1.0/< start >/< end >**:
+
+- Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start to the most recent date in the database or a specified start-end range.
 
 ---
 
 ## Repository Files and Folders
 
+Besides this README file, there are six other files and two folders within this repository.
 
+The folder, which is named *SurfsUp*, contains three of the six files along with the other folder named *Resources*
+
+- **app.py**: .
+
+- **climate.ipynb**: .
+
+- **climate_starter.ipynb**: .
 
 ---
 

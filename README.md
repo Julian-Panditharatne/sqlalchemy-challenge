@@ -68,13 +68,21 @@ In this part, I designed a Flask API based on the queries developed in part 1, w
 
 Besides this README file, there are six other files and two folders within this repository.
 
-The folder, which is named *SurfsUp*, contains three of the six files along with the other folder named *Resources*
+The folder, which is named *SurfsUp*, contains three of the six files along with the other folder named *Resources*.
 
-- **app.py**: .
+- **app.py**: The python file containing the script of the Flask API design.
 
-- **climate.ipynb**: .
+- **climate.ipynb**: The jupyter notebook file containing the script run to analyze and explore the climate and station data from the SQLite Database file, **hawaii.sqlite**.
 
-- **climate_starter.ipynb**: .
+- **climate_starter.ipynb**: The jupyter notebook file containing the starter code used in the data analysis and exploration script file, **climate.ipynb**.
+
+The *Resources* folder contains the other three files.
+
+- **hawaii.sqlite**: The SQLite Database file containing all the climate and station data used in the **app.py** and **climate.ipynb**. script files.
+
+- **hawaii_measurements.csv**: The csv file containing data from the measurements table of the database.
+
+- **hawaii_stations.csv**: The csv file containing data from the stations table of the database.
 
 ---
 
